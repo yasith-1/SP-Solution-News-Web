@@ -3,9 +3,6 @@ package com.spsolutions.newsweb.web;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-/**
- * Backing object for the "add comment" form on the news detail page.
- */
 public class CommentForm {
 
     @NotBlank(message = "Please enter your name")

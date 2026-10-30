@@ -41,15 +41,6 @@ body {
 }
 .back-link:hover { text-decoration: underline; }
 
-.site-footer {
-    margin-top: 40px;
-    padding: 20px 0;
-    background: #11161c;
-    color: #aeb4bd;
-    text-align: center;
-    font-size: .85rem;
-}
-
 /* Titles */
 .section-title { margin: 24px 0 14px; font-size: 1.25rem; }
 .accent { color: var(--accent); }

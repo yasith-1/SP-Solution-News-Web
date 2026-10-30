@@ -8,21 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * Centralised exception handling for the whole web layer.
- *
- * <p>Scoped to the {@code web} package so it handles the Thymeleaf (HTML) controllers only;
- * the REST API has its own JSON handler ({@code ApiExceptionHandler}).</p>
- *
- * <p>SOLID notes:</p>
- * <ul>
- *   <li><b>SRP</b> — controllers focus on the happy path; translating exceptions into
- *       user-facing error pages lives here and nowhere else.</li>
- *   <li><b>OCP</b> — new exception types are supported by adding a new {@code @ExceptionHandler}
- *       method, without editing existing controllers.</li>
- *   <li><b>DRY</b> — one place decides the HTTP status and view for each failure class.</li>
- * </ul>
- */
 @ControllerAdvice(basePackages = "com.spsolutions.newsweb.web")
 public class GlobalExceptionHandler {
 

@@ -28,7 +28,6 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    /** Step 1: home page showing all categories. */
     @GetMapping("/")
     public String home(Model model) {
         log.info("Web: render categories home page");
@@ -36,7 +35,6 @@ public class NewsController {
         return "categories";
     }
 
-    /** Step 2: headlines within the selected category. */
     @GetMapping("/categories/{categoryId}")
     public String headlines(@PathVariable Long categoryId, Model model) {
         log.info("Web: render headlines for category id={}", categoryId);
@@ -47,7 +45,6 @@ public class NewsController {
         return "headlines";
     }
 
-    /** Step 3: full news item with its comments and the comment form. */
     @GetMapping("/news/{newsId}")
     public String newsDetail(@PathVariable Long newsId,
                              @RequestParam(value = "fromCategory", required = false) Long fromCategory,
@@ -62,7 +59,6 @@ public class NewsController {
         return "news-detail";
     }
 
-    /** Step 4: readers add a comment to a news item. */
     @PostMapping("/news/{newsId}/comments")
     public String addComment(@PathVariable Long newsId,
                              @RequestParam(value = "fromCategory", required = false) Long fromCategory,

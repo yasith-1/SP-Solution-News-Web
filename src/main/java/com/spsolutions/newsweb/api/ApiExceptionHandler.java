@@ -14,12 +14,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * JSON error handling for the REST API ({@code /api/**}).
- *
- * <p>SRP: separate from {@code GlobalExceptionHandler}, which renders HTML error pages for the
- * web (Thymeleaf) controllers. Each advice owns one presentation format, scoped by package.</p>
- */
 @RestControllerAdvice(basePackages = "com.spsolutions.newsweb.api")
 public class ApiExceptionHandler {
 
