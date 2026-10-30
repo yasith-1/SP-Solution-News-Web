@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title} != null ? ${title} + ' — News Portal' : 'Error — News Portal'">Error</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="site-header">
+    <div class="container">
+        <a th:href="@{/}" class="back-link">← Home</a>
+        <h1 class="brand">📰 News Portal</h1>
+    </div>
+</header>
+
+<main class="container">
+    <div class="error-box">
+        <div class="error-status" th:text="${status} ?: 'Error'">500</div>
+        <h2 class="error-title" th:text="${title} ?: 'Something went wrong'">Something went wrong</h2>
+        <p class="error-message" th:text="${message} ?: 'An unexpected error occurred.'">Details</p>
+        <a th:href="@{/}" class="btn">Back to categories</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">SP Solutions — News Web</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${category.name} + ' — News Portal'">Headlines</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="site-header">
+    <div class="container">
+        <a th:href="@{/}" class="back-link">← All categories</a>
+        <h1 class="brand">📰 News Portal</h1>
+    </div>
+</header>
+
+<main class="container">
+    <h2 class="section-title">
+        Headlines in <span class="accent" th:text="${category.name}">Category</span>
+    </h2>
+
+    <div th:if="${headlines.isEmpty()}" class="empty">
+        No news in this category yet.
+    </div>
+
+    <ul class="headline-list">
+        <li th:each="news : ${headlines}" class="headline-item">
+            <a th:href="@{/news/{id}(id=${news.id}, fromCategory=${category.id})}"
+               class="headline-link" th:text="${news.headline}">Headline</a>
+            <div class="headline-meta">
+                <span class="date"
+                      th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">date</span>
+                <span class="tags">
+                    <span th:each="cat : ${news.categories}" class="tag" th:text="${cat.name}">tag</span>
+                </span>
+            </div>
+        </li>
+    </ul>
+</main>
+
+<footer class="site-footer">
+    <div class="container">SP Solutions — News Web</div>
+</footer>
+</body>
+</html>

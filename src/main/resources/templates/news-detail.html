@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${news.headline} + ' — News Portal'">News</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="site-header">
+    <div class="container">
+        <a th:if="${fromCategory != null}"
+           th:href="@{/categories/{id}(id=${fromCategory})}" class="back-link">← Back to headlines</a>
+        <a th:unless="${fromCategory != null}" th:href="@{/}" class="back-link">← All categories</a>
+        <h1 class="brand">📰 News Portal</h1>
+    </div>
+</header>
+
+<main class="container">
+    <article class="article">
+        <div class="tags">
+            <span th:each="cat : ${news.categories}" class="tag" th:text="${cat.name}">tag</span>
+        </div>
+        <h2 class="article-title" th:text="${news.headline}">Headline</h2>
+        <p class="article-date"
+           th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">date</p>
+        <div class="article-body" th:text="${news.content}">Full news content...</div>
+    </article>
+
+    <section class="comments">
+        <h3 class="section-title">
+            Comments <span class="count" th:text="'(' + ${news.comments.size()} + ')'">(0)</span>
+        </h3>
+
+        <div th:if="${commentSaved}" class="flash-success">Your comment was posted. Thank you!</div>
+
+        <ul class="comment-list">
+            <li th:if="${news.comments.isEmpty()}" class="empty">
+                Be the first to comment on this news.
+            </li>
+            <li th:each="comment : ${news.comments}" class="comment">
+                <div class="comment-head">
+                    <span class="comment-author" th:text="${comment.authorName}">Author</span>
+                    <span class="comment-date"
+                          th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">date</span>
+                </div>
+                <p class="comment-body" th:text="${comment.content}">Comment text</p>
+            </li>
+        </ul>
+
+        <h3 class="section-title">Add a comment</h3>
+        <form class="comment-form"
+              th:action="@{/news/{id}/comments(id=${news.id}, fromCategory=${fromCategory})}"
+              th:object="${commentForm}" method="post">
+            <label>
+                Your name
+                <input type="text" th:field="*{authorName}" placeholder="e.g. Nimal"/>
+                <span class="field-error" th:if="${#fields.hasErrors('authorName')}"
+                      th:errors="*{authorName}">name error</span>
+            </label>
+            <label>
+                Your comment
+                <textarea th:field="*{content}" rows="4" placeholder="Share your thoughts..."></textarea>
+                <span class="field-error" th:if="${#fields.hasErrors('content')}"
+                      th:errors="*{content}">content error</span>
+            </label>
+            <button type="submit" class="btn">Post comment</button>
+        </form>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">SP Solutions — News Web</div>
+</footer>
+</body>
+</html>
